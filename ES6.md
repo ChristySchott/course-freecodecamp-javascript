@@ -199,8 +199,72 @@ console.log(greeting); // prints
 // I am 56 years old.
 ```
 
-Muitas coisas aconteceram lá. Primeiramente, o exemplo usa reticulares **(`)**, não aspas ('ou"), para quebrar a cadeia.
+Muitas coisas aconteceram lá. Primeiramente, o exemplo usa o acento grave ``(`)``, não aspas ('ou"), para quebrar a cadeia.
 
 A sintaxe ${variavel} usada acima é um placeholder. Basicamente, você não precisará mais usar a concatenação com o operador +. Para adicionar variáveis às strings, basta soltar a variável em uma string de modelo e envolvê-la com $ { e }.
 
 Você pode incluir outras expressões em sua string literal, por exemplo $ {a + b}.
+
+
+#### Use export to Share a Code Block
+
+Imagine um arquivo chamado math_functions.js que contém várias funções relacionadas às operações matemáticas. Um deles é armazenado em uma variável, add, que recebe dois números e retorna sua soma. Você deseja usar esta função em vários arquivos JavaScript diferentes. Para compartilhá-lo com esses outros arquivos, primeiro você precisa exportá-lo. Você pode fazer assim:
+
+```
+const add = (x, y) => {
+  return x + y;
+}
+
+export { add };
+```
+
+####  Reuse JavaScript Code Using import
+A importação permite escolher quais partes de um arquivo ou módulo carregar. Na lição anterior, os exemplos exportados são adicionados a partir do arquivo math_functions.js. Veja como você pode importá-lo para usar em outro arquivo:
+```
+import { add } from './math_functions.js';
+```
+
+Você pode utilizar import  *  para importar tudo de um arquivo.
+```
+import * as myMathModule from "./math_functions.js";
+```
+
+####  Create a JavaScript Promise
+Uma promessa em JavaScript é exatamente o que parece - você a usa para fazer uma promessa de fazer algo, geralmente de forma assíncrona. Quando a tarefa é concluída, você cumpre sua promessa ou deixa de fazê-lo. Promise é uma função construtora, portanto, você precisa usar a nova palavra-chave para criar uma. Ele assume uma função, como argumento, com dois parâmetros - resolve e reject. Estes são métodos usados para determinar o resultado da promessa. A sintaxe é assim:
+```
+const myPromise = new Promise((resolve, reject) => {
+
+});
+```
+
+#### Complete a Promise with resolve and reject
+Uma promessa tem três estados: pendente, cumprida e rejeitada. A promessa que você criou no último desafio fica para sempre no estado pendente porque você não adicionou uma maneira de concluir a promessa. Os parâmetros de resolução e rejeição fornecidos ao argumento da promessa são usados para fazer isso. A resolução(resolve) é usada quando você deseja que sua promessa seja bem-sucedida e a rejeição(reject) é usada quando você deseja que ela falhe. Estes são métodos que levam um argumento, como visto abaixo.
+```
+const myPromise = new Promise((resolve, reject) => {
+  if(condition here) {
+    resolve("Promise was fulfilled");
+  } else {
+    reject("Promise was rejected");
+  }
+});
+```
+#### Handle a Fulfilled Promise with then (Lidar com uma promessa cumprida com then)
+As promessas são mais úteis quando você tem um processo que leva um tempo desconhecido no seu código (ou seja, algo assíncrono), geralmente uma solicitação do servidor. Quando você faz uma solicitação do servidor, leva algum tempo e, após a conclusão, geralmente deseja fazer algo com a resposta do servidor. Isso pode ser alcançado usando o método then. O método then é executado imediatamente após sua promessa ser cumprida com resolve. Aqui está um exemplo:
+```
+myPromise.then(result => {
+  // do something with the result.
+});
+```
+
+result vem do argumento atribuido ao resolve.
+
+#### Handle a Rejected Promise with catch (Lidando com uma promessa rejeitada com o catch)
+
+catch é o método usado quando sua promessa foi rejeitada. É executado imediatamente após o método reject de uma promessa ser chamado. Aqui está a sintaxe:
+
+```
+myPromise.catch(error => {
+  // do something with the error.
+});
+```
+error é o argumento passado para o método reject.
