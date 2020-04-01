@@ -61,3 +61,36 @@ function largestOfFour(arr) {
   return results;
 }
 ```
+
+#### Repeat a String
+
+"Repeat a given string str (first argument) for num times (second argument). Return an empty string if num is not a positive number."
+
+```
+function repeatStringNumTimes(str, num) {
+  if (num < 1) {
+    return "";
+  } else if (num === 1) {
+    return str;
+  } else {
+    return str + repeatStringNumTimes(str, num - 1);
+  }
+}
+```
+
+#### Finders Keepers 
+
+"Create a function that looks through an array (first argument) and returns the first element in the array that passes a truth test (second argument). If no element passes the test, return undefined."
+```
+function findElement(arr, func) {
+  let num = 0;
+  for (var i = 0; i < arr.length; i++) {
+    num = arr[i];
+    if (func(num)) {
+      return num;
+    }
+  }
+
+  return undefined;
+}
+```
