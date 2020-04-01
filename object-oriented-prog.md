@@ -197,6 +197,8 @@ Como a propriedade do construtor pode ser substituída geralmente é melhor usar
 Com o protoype eu posso adicionar funçõesno objeto:
 ```
 Bird.prototype = {
+
+  constructor: Bird,
   numLegs: 2, 
   eat: function() {
     console.log("nom nom nom");
@@ -205,4 +207,99 @@ Bird.prototype = {
     console.log("My name is " + this.name);
   }
 };
+```
+#### Use Inheritance So You Don't Repeat Yourself
+
+Observe no exemplo abaixo que o método de descrição é compartilhado por Bird e Dog:
+```
+Bird.prototype = {
+  constructor: Bird,
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+
+Dog.prototype = {
+  constructor: Dog,
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+```
+
+O método de descrição é repetido em dois lugares. O código pode ser editado criando um supertype (ou pai) chamado Animal:
+
+```
+function Animal() { };
+
+Animal.prototype = {
+  constructor: Animal, 
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+```
+
+Como Animal inclui o método de descrição, você pode removê-lo de Bird and Dog:
+```
+Bird.prototype = {
+  constructor: Bird
+};
+
+Dog.prototype = {
+  constructor: Dog
+};
+```
+
+#### Inherit Behaviors from a Supertype
+
+Para reutilizar os métodos de Animal dentro de Bird e Dog sem defini-los novamente, usa-se uma técnica chamada herança. Criando instância para eles:
+> let duck = Object.creat(Animal.prototype);
+> let dog = Object.create(Animal.protoype);
+
+#### Understand the Immediately Invoked Function Expression (IIFE)
+
+Um padrão comum no JavaScript é executar uma função assim que for declarada:
+```
+(function () {
+  console.log("Chirp, chirp!");
+})(); // this is an anonymous function expression that executes right away
+// Outputs "Chirp, chirp!" immediately
+```
+
+Observe que a função não tem nome e não é armazenada em uma variável. Os dois parênteses () no final da expressão da função fazem com que ela seja executada ou invocada imediatamente. Esse padrão é conhecido como uma *expressão de função chamada imediatamente* ou IIFE.
+
+
+#### Use an IIFE to Create a Module
+
+Uma expressão de função chamada imediatamente (IIFE) é frequentemente usada para agrupar funcionalidades relacionadas em um único objeto ou módulo. 
+```
+function glideMixin(obj) {
+  obj.glide = function() {
+    console.log("Gliding on the water");
+  };
+}
+function flyMixin(obj) {
+  obj.fly = function() {
+    console.log("Flying, wooosh!");
+  };
+}
+```
+
+Nós podemos agrupar esse mixins em um módulo:
+```
+let motionModule = (function () {
+  return {
+    glideMixin: function(obj) {
+      obj.glide = function() {
+        console.log("Gliding on the water");
+      };
+    },
+    flyMixin: function(obj) {
+      obj.fly = function() {
+        console.log("Flying, wooosh!");
+      };
+    }
+  }
+})(); // The two parentheses cause the function to be immediately invoked
 ```
