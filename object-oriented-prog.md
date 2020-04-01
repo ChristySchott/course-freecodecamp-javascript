@@ -131,3 +131,78 @@ for (let property in duck) {
 
 console.log(ownProps); // prints [ "name", "numLegs" ]
 ```
+
+#### Use Prototype Properties para reduzir o código duplicado
+
+Como numLegs provavelmente terá o mesmo valor para todas as instâncias de Bird, você basicamente possui uma variável duplicada numLegs dentro de cada instância de Bird.
+
+Isso pode não ser um problema quando há apenas duas instâncias, mas imagine se houver milhões de instâncias. Isso seria um monte de variáveis duplicadas.
+
+Uma maneira melhor é usar prototype de Bird. As propriedades no protótipo são compartilhadas entre TODAS as instâncias do Bird. Veja como adicionar numLegs ao prototype Bird:
+
+> Bird.prototype.numLegs = 2;
+
+Agora todas instãncias de Bird tem a propriedade numLegs.
+
+#### Iterate Over All Properties
+
+Adicionado as own properties do duck às propriedades ownProps e prototypes ao array prototypeProps:
+```
+function Bird(name) {
+  this.name = name;  //own property
+}
+
+Bird.prototype.numLegs = 2; // prototype property
+
+let duck = new Bird("Donald");
+
+
+let ownProps = [];
+let prototypeProps = [];
+
+for (let property in duck) {
+  if(duck.hasOwnProperty(property)) {
+    ownProps.push(property);
+  } else {
+    prototypeProps.push(property);
+  }
+}
+
+```
+
+#### Understand the Constructor Property
+
+Existe uma propriedade *constructor* localizada na instância dos objetos duck e beagle que criamos antes:
+```
+let duck = new Bird();
+let beagle = new Dog();
+
+console.log(duck.constructor === Bird);  //prints true
+console.log(beagle.constructor === Dog);  //prints true
+```
+Observe que a propriedade construtor é uma referência à função construtora que criou a instância. A vantagem da propriedade construtora é que é possível verificar essa propriedade para descobrir que tipo de objeto é. Aqui está um exemplo de como isso pode ser usado:
+
+```
+function joinBirdFraternity(candidate) {
+  if (candidate.constructor === Bird) {
+    return true;
+  } else {
+    return false;
+  }
+}
+```
+
+Como a propriedade do construtor pode ser substituída geralmente é melhor usar o método instanceof para verificar o tipo de um objeto.
+
+Com o protoype eu posso adicionar funçõesno objeto:
+```
+Bird.prototype = {
+  numLegs: 2, 
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+```
