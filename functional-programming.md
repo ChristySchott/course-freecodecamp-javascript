@@ -86,3 +86,33 @@ console.log(names); // [ 'John', 'Amy', 'camperCat' ]
 
 #### Use the filter Method to Extract Data from an Array
 
+O método  filter() vai percorrer cada elemento de um array e colocar, em um novo array, os elementos que retornam TRUE, de acordo com a função especificada no nosso filtro.
+
+Para ficar mais claro, vamos usar um exemplo. Imagine o seguinte array:
+```
+const people = [
+    { name: 'Carlos', age: 28 },
+    { name: 'Henrique', age: 22 },
+    { name: 'João', age: 27 },
+    { name: 'Paulo', age: 30}
+]
+````
+Agora, vamos usar a função  filter() para percorrer o array e retornar, em um novo array, todo mundo que tenha mais de 22 anos.
+
+Para isso vamos definir uma nova variável, chamada  newArray e como valor inicial da mesma, vamos passar o retorno da nossa função  filter(). Ou seja, nosso novo array, vai ser composto de todo mundo, no array antigo, com mais de 22 anos.
+
+> const newArray = people.filter(person => person.age > 22);
+
+---------
+
+O método filter() cria um novo array com todos os elementos que passaram no teste implementado pela função fornecida.
+```
+function isBigEnough(value) {
+  return value >= 10;
+}
+
+var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+// filtrado é [12, 130, 44]
+```
+
+
